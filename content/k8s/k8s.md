@@ -12,3 +12,17 @@ tags:
 minikube addons enable metrics-server
 ```
 해주면 알아서 실행합니다.
+
+그리고 이제 HPA를 실행시켜서 수평 확장하는 기능을 추가해줍니다.
+``` bash
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+```
+
+현재 상태 보고 싶으면 이 명령어를 치시면 돼요!
+``` bash
+kubectl get hpa
+```
+
+![[스크린샷 2026-04-24 163549.png]]
+
+고럼 요런 식으로 나옵니다.
