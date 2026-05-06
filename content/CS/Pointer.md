@@ -5,6 +5,8 @@ tags:
   - java
   - backend
 description: 자바에서 파라미터 변수 호출 방식
+date: Tuesday, April 7th 2026, 3:25:36 pm
+lastmod: Wednesday, May 6th 2026, 1:25:20 pm
 ---
 ### 포인터란
 포인터는 개발자가 선언한 변수에 실제 데이터가 저장되어 있는 메모리(초기화)주소를 가르키는 객체입니다. 포인터는 C, C++에서는 직접 쓸 수 있지만 자바에서는 쓸 수 없습니다. 

@@ -1,3 +1,7 @@
+---
+date: Wednesday, May 6th 2026, 10:26:59 am
+lastmod: Wednesday, May 6th 2026, 1:25:21 pm
+---
 ### Step 1: 터미널에서 프로젝트 경로로 갑니다
 
 ### Step 2: git 초기화를 합니다
