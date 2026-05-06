@@ -1,70 +1,46 @@
-### Step 1: Open Your Terminal
+### Step 1: 터미널에서 프로젝트 경로로 갑니다
 
-Open your terminal and navigate to the root directory of your Spring application (the folder that contains your `build.gradle` and `src` folder).
+### Step 2: git 초기화를 합니다
 
-### Step 2: Initialize Git (If you haven't already)
-
-If your Spring project isn't a Git repository yet, initialize it.
-
-Bash
-
-```
+``` Bash
 git init
 ```
 
-### Step 3: Link the Remote Repository
+### Step 3: 원격 레포지토리랑 연결합니다
 
-Connect your local folder to your GitHub/GitLab repository. Replace the URL with your actual repository URL.
-
-Bash
-
-```
+``` Bash
 git remote add origin https://github.com/your-username/your-repo-name.git
 ```
 
-### Step 4: Fetch the Remote Branches
+### Step 4: 원격 브랜치 fetch 합니다
 
-This tells your local Git to download the data about the `main` branch and the new branch you created, but it won't touch your local files yet.
+fetch를 하면 원격에 있는 브랜치들의 정보를 가져오지만 아직 로컬 데이터는 건드리지 않습니다.
 
-Bash
-
-```
+``` Bash
 git fetch
 ```
 
-### Step 5: Switch to Your New Branch
+### Step 5: 새로운 브랜치로 이동합니다.
 
-Now, switch to the branch you created on the remote. Because you haven't committed anything locally yet, Git will safely download the `README.md` into your folder without deleting your Spring files.
+원격에서 만든 새로운 브랜치로 이동합니다. 아직 로컬에서 커밋한 파일이 없기 때문에, 깃이 readme 파일을 다른 파일을 삭제하지 않고 다운로드합니다.
 
-Bash
-
-```
+``` Bash
 git switch <your-new-branch-name>
 ```
 
-_(Note: If Git throws an error saying a local file would be overwritten, it is usually because Spring Initializr created a `README.md` or `HELP.md` locally that conflicts with the remote one. Simply delete or rename your local `README.md`, and run the command again)._
+### Step 6: Stage하고 Commit합니다.
 
-### Step 6: Stage and Commit Your Code
+모든 프로젝트 파일을 stage하고 commit합니다:
 
-Before running this, make sure your project has a `.gitignore` file (Spring Initializr generates one by default) so you don't accidentally push your compiled `build/` directory or `.idea/` IDE settings.
-
-Stage all your Spring files and commit them:
-
-Bash
-
-```
+``` Bash
 git add .
 git commit -m "Add existing Spring Boot application code"
 ```
 
-### Step 7: Push to the Remote Repository
+### Step 7: 원격 레포에 push합니다
 
-Finally, push your code up to the remote branch. The `-u` flag sets the "upstream" tracking, so next time you can just type `git push`.
-
-Bash
-
-```
+``` Bash
 git push -u origin <your-new-branch-name>
 ```
 
-Your Spring application will now be safely stored on the new branch, right alongside the `README.md`!
+이제 새로운 브랜치에 프로젝트 코드도 올라가고 readme도 잘 있을거에요!
