@@ -1,6 +1,6 @@
 ---
-date: Wednesday, May 6th 2026, 10:26:59 am
-lastmod: Wednesday, May 6th 2026, 1:25:21 pm
+date: 2026-05-06
+lastmod: 2026-05-06
 ---
 ### Step 1: 터미널에서 프로젝트 경로로 갑니다
 
