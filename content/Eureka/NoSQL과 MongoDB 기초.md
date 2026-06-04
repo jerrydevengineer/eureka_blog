@@ -6,7 +6,6 @@ tags:
   - 유레카4기
 description: 관계형 데이터베이스(RDBMS)의 한계를 극복하는 NoSQL의 개념과 대표주자인 MongoDB의 핵심 특징을 알아봅니다.
 date: 2026-05-28
-lastmod: Wednesday, May 6th 2026, 1:25:58 pm
 ---
 오늘은 NoSQL이 뭔지 배우고 MongoDB를 실제 자바에 연결해서 사용해보는 실습을 해봤습니다.
 
