@@ -1,3 +1,6 @@
+---
+date: 2026-06-08
+---
 # Claude랑 Tauri로 이북 어플 만들기
 
 저는 이북 리더기로 boox 포크 6를 쓰는데 킨들, readera, eBoox를 씁니다. 근데 셋 다 쓸 때마다 너무 느린거 같아서 잡다한 기능 다 빼고 그냥 딱 보기만 하기 위한 어플을 만들어보기로 했습니다. 처음부터 클로드 코드랑 만들었고 코드는 보고 이상한 부분 말하는 정도로 했습니다. Rust와 Tauri v2를 사용해서 만들었습니다.
@@ -75,19 +78,17 @@ Tauri v2 Android 타겟은 놀라울 정도로 안정적입니다. 저는 앱 �
 **file I/O를 위한 Rust 선택은 괜찮았다**
 TypeScript 프런트엔드는 파일 시스템에 직접 접근하지 않습니다. 모든 파일 읽기, 디렉토리 스캔 및 데이터베이스 접근은 Rust 명령어를 통해 이루어집니다. 이것이 올바른 아키텍처입니다. Rust는 오류를 적절하게 처리하고 코드 속도를 향상시킵니다. 다른 어플이 사용하는 환경은 무엇인지 모르겠지만 체감 상 훨씬 빠른 속도를 보여줍니다.
 
-**SQLite is perfect for local app state**
-Progress, bookmarks, shelves, folder list — all in one SQLite file stored in the app's data directory. No backend server, no sync, no account required. It just works.
+**SQLite는 로컬 앱 상태를 저장하는 데 적합합니다**
+진행 상황, 북마크, 서가, 폴더 목록 등 모든 정보가 앱의 데이터 디렉터리에 저장된 하나의 SQLite 파일에 보관됩니다. 백엔드 서버도, 동기화도, 계정도 필요 없습니다. 그냥 사용하면 됩니다.
 
-**Vanilla TypeScript is underrated**
-No React, no Vue, no state management library. Just TypeScript with DOM APIs. The app has a library view and a reader view — the state fits in a few module-level variables. Adding a framework would have added complexity without benefit.
+**바닐라 타입스크립트는 과소평가되어 있습니다**
+React도, Vue도, 상태 관리 라이브러리도 사용하지 않았습니다. 오직 DOM API를 사용하는 TypeScript만 사용했습니다. 앱은 라이브러리 뷰와 리더 뷰로 구성되어 있으며, 상태는 몇 개의 모듈 레벨 변수에 저장됩니다. 이렇게 간단한 프로젝트에 프레임워크를 추가하면 복잡성만 가중될 뿐 이점은 없었습니다.
 
-**Android's filesystem is a maze**
-The standard file picker doesn't work well for e-readers because you want to pick a *folder* of books, not a single file. And `content://` URIs don't give you real paths. The custom file browser was the right solution.
+**안드로이드의 파일 시스템은 미로 같습니다**
+기본 파일 선택기는 전자책 리더기에 적합하지 않습니다. 전자책 리더기에서는 단일 파일이 아니라 책이 담긴 *폴더*ㅋㅋ를 선택해야 하기 때문입니다. 또한 `content://` URI는 실제 경로를 제공하지 않습니다. 따라서 사용자 지정 파일 브라우저가 올바른 해결책이었습니다.
 
 ---
 
-## What's Next
+## 남은 작업
 
-The next target is **iOS**. Tauri v2 supports iOS in the same way it supports Android — `npm run tauri ios init` generates an Xcode project. The main catch: iOS requires a Mac to compile (Xcode only runs on macOS). The plan is to build on a Mac and test on a real device.
-
-The code is essentially ready. It's the build environment that needs to move.
+다음 목표는 **iOS**입니다. Tauri v2는 Android와 마찬가지로 iOS도 지원합니다. `npm run tauri ios init` 명령어를 실행하면 Xcode 프로젝트가 생성됩니다. 다만 한 가지 주의할 점은 iOS 컴파일에는 Mac이 필요하다는 것입니다(Xcode는 macOS에서만 실행됩니다). Mac에서 빌드하고 실제 기기에서 테스트할 계획입니다. 후... 안해봤지만 제 8기가 m1 에어에서는 안 될 거 같아서 잠시 보류 중입니다... 나중에 부자 되면 바로 빌드하고 테스트해서 아이패드에서도 마크다운 편하게 봐야
