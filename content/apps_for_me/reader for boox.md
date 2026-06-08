@@ -70,10 +70,10 @@ PowerShell의 `System.Drawing`을 사용하여 1024x1024 크기의 마스터 아
 ## 느낀 점
 
 **Tauri는 모바일로 진짜 좋다**
-Tauri v2 Android 타겟은 놀라울 정도로 안정적입니다. 저는 앱 개발은 처음이고 tauri도 처음인데 window 먼저 테스트 후 android 테스트를 했는데 진짜 환경 `invoke()` 브리지(TypeScript → Rust)는 Android에서도 동일하게 작동합니다. `npm run tauri android build` 명령어를 실행하면 제대로 된 네이티브 APK 파일을 생성할 수 있습니다.
+Tauri v2 Android 타겟은 놀라울 정도로 안정적입니다. 저는 앱 개발은 처음이고 tauri도 처음인데 window 먼저 테스트 후 android 테스트를 했는데 진짜 환경으로 인한 에러는 없고 폴더 접근만 수정하면 됐습니다. `invoke()` 브리지(TypeScript → Rust)는 Android에서도 동일하게 작동합니다. `npm run tauri android build` 명령어를 실행하면 제대로 된 네이티브 APK 파일을 생성할 수 있습니다.
 
-**Rust for file I/O is the right call**
-The TypeScript frontend never touches the filesystem directly. All file reading, directory scanning, and database access goes through Rust commands. This is the right architecture — Rust handles errors properly and the code is fast.
+**file I/O를 위한 Rust 선택은 괜찮았다**
+TypeScript 프런트엔드는 파일 시스템에 직접 접근하지 않습니다. 모든 파일 읽기, 디렉토리 스캔 및 데이터베이스 접근은 Rust 명령어를 통해 이루어집니다. 이것이 올바른 아키텍처입니다. Rust는 오류를 적절하게 처리하고 코드 속도를 향상시킵니다. 다른 어플이 사용하는 환경은 무엇인지 모르겠지만 체감 상 훨씬 빠른 속도를 보여줍니다.
 
 **SQLite is perfect for local app state**
 Progress, bookmarks, shelves, folder list — all in one SQLite file stored in the app's data directory. No backend server, no sync, no account required. It just works.
