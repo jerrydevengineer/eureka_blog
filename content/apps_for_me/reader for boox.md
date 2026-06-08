@@ -6,25 +6,24 @@
 
 ## 기능
 
-현재는 윈도우 데스크탑, 안드로이드에서 테스트 완료됐습니다. PDF, epub, md 파일들 테스트
-The app is a desktop + Android e-reader that handles three file formats:
+현재는 윈도우 데스크탑, 안드로이드에서 테스트 완료됐습니다. PDF, epub, md 파일들 테스트 완료됐습니다.
 
-- **PDF** — page-by-page rendering, zoom in/out, full-text search
-- **EPUB** — chapter navigation, table of contents panel, full-text search
-- **Markdown** — rendered with syntax highlighting, search
+- **PDF** — page-by-page 렌더링, zoom in/out, 전문 검색
+- **EPUB** — 챕터 네비게이션, 목차, 전문 검색
+- **Markdown** — 마크다운 형식 뷰어, 검색
 
-On top of reading, it has a full library management system:
+읽기 기능 외에도 기본적인 도서관 관리 시스템을 갖추고 있습니다:
 
-- Scan any folder on your device for books
-- **Shelves** — organize books into named collections (like playlists for books)
-- **Reading progress** — automatically remembers which page/chapter you left off on
-- **Bookmarks** — save positions within a book
-- **Multi-select** — select multiple books at once to add them to a shelf in bulk
+- 디바이스 내 폴더를 스캔할 수 있습니다.
+- **Shelves** — 책장에 이름을 붙이고 원하는 책을 넣을 수 있습니다.
+- **Reading progress** — 어느 페이지/챕터에서 나갔는지 기억합니다.
+- **Bookmarks** — 책에 책갈피를 만들 수 있습니다.
+- **Multi-select** — 여러 책 선택 후 책장에 넣을 수도 있습니다.
 - **Font size control** (for EPUB/Markdown) and **zoom** (for PDF)
 
 ---
 
-## Tech Stack
+## 스택
 
 | Layer | Technology |
 |---|---|
