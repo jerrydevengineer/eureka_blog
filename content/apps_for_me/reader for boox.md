@@ -33,22 +33,22 @@
 | Database | SQLite via `rusqlite` |
 | Targets | Windows, Android |
 
-Tauri gives you a native window with a WebView inside. The frontend (TypeScript) handles all the UI. The backend (Rust) handles the heavy lifting — file I/O, PDF rendering, EPUB parsing, Markdown rendering, and the SQLite database.
+Tauri는 WebView가 포함된 네이티브 창을 제공합니다. 프런트엔드(TypeScript)는 모든 UI를 처리하고, 백엔드(Rust)는 파일 입출력, PDF 렌더링, EPUB 파싱, Markdown 렌더링 및 SQLite 데이터베이스와 같은 핵심 기능을 처리합니다.
 
 ---
 
-## How It Was Built
+## 만든 과정
 
-The app was built in phases, roughly like this:
+앱을 만들기 전에 계획을 페이즈 별로 세웠는데, 러프하게 보여드리면:
 
 **Phase 1 — First commit**
-Basic project scaffold. Tauri app boots, shows a window.
+기본 골격으로 Tauri가 뜨고 창이 보이는 세팅만 했습니다.
 
 **Phases 2–5 — Core reader**
-- PDF rendering command in Rust, page navigation in TypeScript
-- EPUB parsing and chapter rendering
-- Markdown rendering with `highlight.js` for code blocks
-- Library view that scans folders and lists books
+- PDF 렌더링을 Rust로 만들고, TypeScript로 찾아갈 수 있게 했습니다.
+- EPUB 파일 파싱하고 챕터 렌더링을 했습니다.
+- Markdown 렌더링을 했고 코드 블럭에서는 `highlight.js`를 사용했습니다.
+- 폴더 스캔하는 부분이랑 책 리스트 부분을 만들었습니다.
 
 **Android port**
 Tauri v2 supports Android out of the box. Running `npm run tauri android init` generated an Android Studio project. Most of the work "just worked" — the WebView renders the same on Android. The main friction was file system access.
