@@ -51,26 +51,26 @@ Tauri는 WebView가 포함된 네이티브 창을 제공합니다. 프런트엔�
 - 폴더 스캔하는 부분이랑 책 리스트 부분을 만들었습니다.
 
 **Android port**
-Tauri v2 supports Android out of the box. Running `npm run tauri android init` generated an Android Studio project. Most of the work "just worked" — the WebView renders the same on Android. The main friction was file system access.
+Tauri v2는 안드로이드를 기본적으로 지원합니다. `npm run tauri android init` 명령어를 실행하면 안드로이드 스튜디오 프로젝트가 생성됩니다. 대부분의 작업은 "테스트한 부분은 잘 작동"했으며, WebView는 안드로이드에서도 동일하게 렌더링됩니다. 주요 문제는 파일 시스템 접근이었습니다.
 
 **SD card fix**
-On BOOX e-ink devices, books are often stored on an SD card. Android's standard file picker returns `content://` URIs that Tauri can't read directly. The fix: a custom in-app file browser that talks to a Rust `list_directory` command. It detects storage roots (`/storage/emulated/0` for internal, `/storage/XXXX` for SD card) and lets you navigate the real filesystem.
+저는 모든 책들을 SD 카드에 저장했습니다. 안드로이드의 표준 파일 선택기는 Tauri가 직접 읽을 수 없는 `content://` URI를 반환합니다. 해결책은 Rust의 `list_directory` 명령과 통신하는 맞춤형 앱 내 파일 브라우저를 사용하는 것입니다. 이 브라우저는 저장소 루트(내부 저장소의 경우 `/storage/emulated/0`, SD 카드의 경우 `/storage/XXXX`)를 감지하고 실제 파일 시스템을 탐색할 수 있도록 합니다.
 
 **Select mode**
-Added multi-select to the library: tap "Select," check off books, then bulk-add them to a shelf.
+라이브러리에 다중 선택 기능을 추가했습니다. 이런거 안하려고 했는데 이거마저 안하면 사용성이 너무 떨어졌습니다.
 
 **Bookmarks and progress bar**
-Bookmarks are stored in SQLite. The progress bar shows at the top of the reader and updates as you turn pages/chapters.
+책갈피는 SQLite에 저장됩니다. 진행률 표시줄은 화면 위에 표시되며 페이지/챕터를 넘길 때마다 업데이트됩니다.
 
 **App icon**
-Generated a 1024×1024 master icon using PowerShell's `System.Drawing` — no Photoshop, no npm packages. A blue rounded-rectangle background with an open book and a yellow bookmark ribbon. Then `npm run tauri icon icon_source.png` auto-generated all 50+ icon sizes for every platform (Windows `.ico`, macOS `.icns`, Android `mipmap-*`, iOS `AppIcon-*`).
+PowerShell의 `System.Drawing`을 사용하여 1024x1024 크기의 마스터 아이콘을 생성했습니다. Photoshop이나 npm 패키지는 사용하지 않았습니다. 파란색 모서리가 둥근 직사각형 배경에 펼쳐진 책과 노란색 책갈피 리본이 있는 아이콘입니다. 그런 다음 `npm run tauri icon icon_source.png` 명령어를 실행하여 모든 플랫폼(Windows `.ico`, macOS `.icns`, Android `mipmap-*`, iOS `AppIcon-*`)에 대한 50개 이상의 다양한 크기 아이콘을 자동으로 생성했습니다.
 
 ---
 
-## What I Learned
+## 느낀 점
 
-**Tauri is genuinely good for mobile**
-The Tauri v2 Android target is surprisingly solid. The `invoke()` bridge (TypeScript → Rust) works identically on Android. You get a proper native APK from `npm run tauri android build`.
+**Tauri는 모바일로 진짜 좋다**
+Tauri v2 Android 타겟은 놀라울 정도로 안정적입니다. 저는 앱 개발은 처음이고 tauri도 처음인데 window 먼저 테스트 후 android 테스트를 했는데 진짜 환경 `invoke()` 브리지(TypeScript → Rust)는 Android에서도 동일하게 작동합니다. `npm run tauri android build` 명령어를 실행하면 제대로 된 네이티브 APK 파일을 생성할 수 있습니다.
 
 **Rust for file I/O is the right call**
 The TypeScript frontend never touches the filesystem directly. All file reading, directory scanning, and database access goes through Rust commands. This is the right architecture — Rust handles errors properly and the code is fast.
