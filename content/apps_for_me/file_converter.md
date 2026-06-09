@@ -125,26 +125,26 @@ pre {
 
 ---
 
-## 내가 다르게 했을 일들
+## 작업할 때 신경 쓴 점
 
-**디자인이 아닌 CSS 제약 조건부터 시작하세요.** I spent time making the output look good on screen before testing on the ebook reader. The constraints of an ebook display (e-ink, A4 page, limited width for code) should drive the CSS decisions from day one.
+**디자인이 아닌 CSS 제약 조건부터 시작했습니다.** 전자책 리더기에서 테스트하기 전에 화면에서 결과물이 보기 좋게 나오도록 시간을 들였습니다. 전자책 디스플레이의 제약 조건(전자잉크, A4 용지, 코드의 제한된 너비)을 고려하여 처음부터 CSS를 결정해야 했습니다.
 
-**Keep code font size independent of body font size.** These two sizes serve completely different purposes and should not scale together.
+**코드 글꼴 크기와 본문 글꼴 크기는 별개로 유지했습니다.** 이 두 크기는 완전히 다른 목적을 가지고 있으므로 함께 확대/축소되어서는 안 됩니다.
 
-**Test with real content, not toy examples.** The ASCII diagrams and long SQL lines in my actual notes exposed problems that a simple "hello world" Markdown file would never hit.
+**실제 콘텐츠로 테스트하세요. 간단한 예제로 하면 안됩니다.** 제 실제 노트에 있는 ASCII 다이어그램과 긴 SQL 코드는 간단한 "hello world" 마크다운 파일에서는 절대 발생하지 않을 문제들을 드러냈습니다.
 
 ---
 
-## The Result
+## 결과
 
-A single Rust binary that:
+단일 Rust 바이너리:
 
-- Converts any Markdown file (or multiple files merged) to a well-styled PDF
-- Accepts a JSON theme config for full typographic control
-- Produces PDFs that are genuinely comfortable to read on an ebook reader
-- Can reverse-convert a PDF back to rough Markdown using font-size-aware heading detection
+- 모든 마크다운 파일(또는 여러 파일을 병합한 파일)을 스타일이 잘 적용된 PDF로 변환합니다.
+- 완벽한 타이포그래피 제어를 위해 JSON 테마 설정을 지원합니다.
+- 전자책 리더에서 읽기 편한 PDF를 생성합니다.
+- 글꼴 크기를 인식하는 제목 감지 기능을 사용하여 PDF를 다시 마크다운 형식으로 변환할 수 있습니다.
 
-The whole project is about 500 lines of Rust across five files. Most of the complexity lives in the CSS and the config system, not the Rust itself.
+전체 프로젝트는 5개의 파일에 걸쳐 약 500줄의 Rust 코드로 구성되어 있습니다. 대부분의 복잡성은 Rust 코드 자체보다는 CSS와 설정 시스템에 있었습니다.
 
 ---
 
