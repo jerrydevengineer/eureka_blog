@@ -37,9 +37,9 @@ Markdown → HTML (pulldown-cmark) → PDF (headless Chrome)
 PDF → text + font sizes (PDFium) → classified blocks → Markdown
 ```
 
-For the forward direction, I use [pulldown-cmark](https://github.com/raphlinus/pulldown-cmark) to parse Markdown into HTML, inject it into a full CSS template, and hand the HTML to headless Chrome via the Chrome DevTools Protocol. Chrome's print-to-PDF is surprisingly good — it handles pagination, `@page` rules, and `page-break-inside: avoid` correctly in most cases.
+순방향 처리를 위해 저는 [pulldown-cmark](https://github.com/raphlinus/pulldown-cmark)를 사용하여 Markdown을 HTML로 파싱하고 이를 전체 CSS 템플릿에 삽입한 다음, Chrome 개발자 도구 프로토콜을 통해 헤드리스 Chrome에 HTML을 전달합니다. Chrome의 PDF 인쇄 기능은 진짜 좋더라구요. 대부분의 경우 페이지 매김, `@page` 규칙, `page-break-inside: avoid`를 정확하게 처리합니다.
 
-For the reverse direction (PDF → Markdown), I use PDFium to read each text object with its actual font size, classify blocks as headings or body text based on font size thresholds, and reconstruct the Markdown structure.
+반대 방향(PDF → Markdown)으로 변환할 때는 PDFium을 사용하여 각 텍스트 객체를 실제 글꼴 크기로 읽고, 글꼴 크기 임계값을 기준으로 블록을 제목 또는 본문으로 분류한 다음 Markdown 구조를 재구성합니다.
 
 All styling is driven by a single JSON config file:
 
