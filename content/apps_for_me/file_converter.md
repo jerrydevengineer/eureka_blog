@@ -95,39 +95,39 @@ pre {
 
 본문 글꼴 크기를 크게 하려고 코드 크기를 17px로 설정했습니다. 17px 크기로 34줄짜리 ASCII 다이어그램을 그리면 높이가 약 895px가 되는데, 이는 A4 용지 한 장(실사용 가능 면적 약 625px)보다 높습니다. 크롬은 요소가 한 페이지에 물리적으로 맞지 않을 경우 `page-break-inside: avoid` 설정을 무시하고 다이어그램을 중간에 두 페이지로 나눠 표시합니다.
 
-그래서 본문 글꼴 크기에 관계없이 `code_font_size`를 11px로 유지하는 것으로 해결했습니다. 코드는 단어 단위로 읽는 것이 아니라 구조적으로 읽히므로 글꼴 크기보다 정렬과 공백이 더 중요합니다. 11px로 설정하면 한 줄에 약 98자를 표시할 수 있으며, 34줄짜리 코드 블록도 한 페이지에 들어갑니다.
+그래서 본문 글꼴 크기에 관계없이 `code_font_size`를 11px로 유지하는 것으로 해결했습니다. 코드는 단어 단위로 읽는 것이 아니라 구조적으로 읽히므로 글꼴 크기보다 정렬과 공백이 더 중요하다고 생각했습니다. 11px로 설정하면 한 줄에 약 98자를 표시할 수 있으며, 34줄짜리 코드 블록도 한 페이지에 들어갑니다.
 
-### Learning Rust Without a Rust Background
+### Rust에 대한 배경지식 없이 Rust 배우기
 
-I had no Rust experience going into this. The ownership model felt strange at first — every function signature is explicit about who owns what and who can borrow. But it turns out this is exactly what makes the code reliable: the compiler catches a whole class of bugs at compile time that I would have spent hours debugging in other languages.
+저는 Rust 경험이 전혀 없는 상태에서 이 프로젝트를 시작했습니다. 소유권 모델이 처음에는 낯설게 느껴졌습니다. 모든 함수 시그니처에 누가 무엇을 소유하고 누가 빌릴 수 있는지 명시되어 있었기 때문입니다. 하지만 알고 보니 바로 이 점 때문에 코드가 안정적이었습니다. 컴파일러가 컴파일 시점에 다른 언어였다면 몇 시간씩 디버깅해야 했을 다양한 종류의 버그를 잡아냈습니다. 진짜 런타임에서 잡는거보다 편하더라구요...
 
-The patterns I relied on most:
+제가 가장 많이 의존했던 패턴들:
 
-- `Option<T>` and `Result<T, E>` instead of null/exception — every fallible operation is explicit in the type
-- The `?` operator for propagating errors without nested `match` blocks
-- `serde` with derive macros for JSON config deserialization in about 5 lines of code
-- `clap` derive macros for the CLI — the entire argument parser is just struct definitions with attributes
+- null/예외 대신 `Option<T>` 및 `Result<T, E>` 사용 — 모든 오류 발생 가능한 연산은 타입에 명시적으로 표현됩니다.
+- 중첩된 `match` 블록 없이 오류를 전파하기 위한 `?` 연산자
+- `serde`와 `derive` 매크로를 사용하면 약 5줄의 코드로 JSON 설정 역직렬화를 수행할 수 있습니다.
+- `clap`은 CLI용 매크로를 파생합니다. 전체 인자 파서는 속성을 가진 구조체 정의로만 구성됩니다.
 
 ---
 
 ## The Ebook Theme
 
-After a lot of iteration, my go-to config for comfortable long reading:
+수많은 시행착오 끝에, 저에게 장시간 독서에 편안한 최적의 설정은 이렇게 했습니다:
 
 | Setting | Value | Why |
 |---|---|---|
-| Font | Georgia serif | Reduces eye strain vs sans-serif for long text |
-| Background | `#faf9f7` | Warm white — less harsh than pure `#ffffff` |
-| Body size | 19px | Comfortable on a 6" ebook display |
-| Code size | 11px | Keeps diagrams intact and lines from wrapping |
-| Code background | `#f1f5f9` | Light theme — better on e-ink than dark |
-| Margins | 12mm left/right | More content width, essential for code blocks |
+| Font | Georgia serif | 긴 글 읽을 때 눈이 편함 |
+| Background | `#faf9f7` | 백색광 - `#ffffff`보다 편합니다 |
+| Body size | 19px | 6" ebook display에서 적당한 듯... |
+| Code size | 11px | 도표를 그대로 유지하고 선이 겹치는 것을 방지합니다. |
+| Code background | `#f1f5f9` | 까만 코드 블럭은 이북리더기에서 잘 안보이더라구요 |
+| Margins | 12mm left/right | 코드 블럭을 위해 좀 더 넓게 했습니다다 |
 
 ---
 
-## What I'd Do Differently
+## 내가 다르게 했을 일들
 
-**Start with the CSS constraints, not the design.** I spent time making the output look good on screen before testing on the ebook reader. The constraints of an ebook display (e-ink, A4 page, limited width for code) should drive the CSS decisions from day one.
+**디자인이 아닌 CSS 제약 조건부터 시작하세요.** I spent time making the output look good on screen before testing on the ebook reader. The constraints of an ebook display (e-ink, A4 page, limited width for code) should drive the CSS decisions from day one.
 
 **Keep code font size independent of body font size.** These two sizes serve completely different purposes and should not scale together.
 
