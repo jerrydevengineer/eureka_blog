@@ -6,31 +6,32 @@
 
 ## 문제점
 
-저는 저를 위해서 작성하는 기술 노트들이 너무 많아지고 있었어요. 마크다운은 작성하고 모니터에서 
-I have a growing collection of technical notes — database internals, system design references, guides I write for myself. Markdown is great for writing. But reading a raw `.md` file on an ebook reader is not great. And most Markdown-to-PDF tools produce output that looks fine on a monitor but is painful on an e-ink display: tiny fonts, harsh white backgrounds, code blocks that overflow the page.
+저는 저를 위해서 작성하는 기술 노트들이 너무 많아지고 있었어요. 마크다운은 작성하고 모니터에서 보는건 편한데 이북리더기에서는 읽을 수 있는 어플도 찾기 힘들더라구요. 그래서 옵시디언 기본 기능으로 pdf를 만들면 이북리더기에서 읽기에는 글씨도 작고 코드 블록이나 이런게 다 이상하게 나오고 색깔도 옵시디언 현재 색상을 따라가 버려서 이북리더기에서 읽을 수가 없었습니다!
 
-I wanted:
+그래서 필요한 점만 말하면:
+- 깔끔하고 조절 가능한 글씨
+- pdf로 변환했을 때 깨지지 않는 코드 블럭
+- 설정 파일을 만들어서 원할 때만 적용 가능
+- 폴더에서 커맨드 라인으로 실행 가능
 
-- Clean, readable typography (a serif font like Georgia, warm background)
-- Code blocks that don't break mid-line or mid-diagram
-- Full control over every font size, color, and margin — via a config file
-- A tool I could run from the command line on any folder
+정도였습니다.
 
 ## Why Rust
 
-Honestly, partly curiosity. I'm a backend developer and had never touched Rust. This felt like a project small enough to finish but complex enough to actually learn from.
 
-The other reason was practical: Rust produces a single native binary with no runtime. Once built, I can run `file-converter` anywhere without installing Node, Python, or JVM.
+솔직히 말하면 그냥 써보고 싶었습니다. 저는 백엔드 개발자인데 Rust는 한 번도 다뤄본 적이 없었거든요. 이 프로젝트는 완성하기에 충분히 작으면서도, 실제로 배울 수 있을 만큼 충분히 복잡해 보였어요.
 
-## How the Tool Works
+또 다른 이유는 실용적인 측면이었습니다. Rust는 런타임이 필요 없는 단일 네이티브 바이너리를 생성합니다. 따라서 빌드가 완료되면 Node, Python 또는 JVM을 설치하지 않고도 어디서든 `file-converter`를 실행할 수 있습니다.
 
-The pipeline is simple:
+## 어떻게 돌아가는지
+
+파이프라인은 간단합니다:
 
 ```
 Markdown → HTML (pulldown-cmark) → PDF (headless Chrome)
 ```
 
-And in reverse:
+반대도 되긴 합니다다:
 
 ```
 PDF → text + font sizes (PDFium) → classified blocks → Markdown
