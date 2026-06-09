@@ -41,7 +41,7 @@ PDF → text + font sizes (PDFium) → classified blocks → Markdown
 
 반대 방향(PDF → Markdown)으로 변환할 때는 PDFium을 사용하여 각 텍스트 객체를 실제 글꼴 크기로 읽고, 글꼴 크기 임계값을 기준으로 블록을 제목 또는 본문으로 분류한 다음 Markdown 구조를 재구성합니다.
 
-All styling is driven by a single JSON config file:
+JSON config file에서 디자인 수정 가능합니다:
 
 ```json
 {
@@ -54,7 +54,7 @@ All styling is driven by a single JSON config file:
 }
 ```
 
-You can place this config file anywhere and reference it by full path. The output PDF can go anywhere too — no need to copy config files around.
+이 파일은 아무데나 넣고 마지막에 경로로 옵션 추가할 수 있습니다. pdf 파일도 원하는 경로에 적으면 거기에 생성됩니다.
 
 ## Commands
 
@@ -62,7 +62,7 @@ You can place this config file anywhere and reference it by full path. The outpu
 # Single file
 file-converter md2pdf notes.md notes.pdf --config ebook-theme.json
 
-# Merge multiple files into one PDF (great for ebooks)
+# Merge multiple files into one PDF (ebook 만들 때 좋음, ebook-theme-big.json을 저는 씁니다)
 file-converter merge2pdf ch1.md ch2.md ch3.md --output book.pdf --config ebook-theme.json
 
 # Extract text from a PDF back to Markdown
