@@ -65,25 +65,25 @@ file-converter md2pdf notes.md notes.pdf --config ebook-theme.json
 # Merge multiple files into one PDF (ebook 만들 때 좋음, ebook-theme-big.json을 저는 씁니다)
 file-converter merge2pdf ch1.md ch2.md ch3.md --output book.pdf --config ebook-theme.json
 
-# Extract text from a PDF back to Markdown
+# PDF에서 Markdown(고질적인 문제점은 여전히 있으니 완벽하진 않아요! 특히 표나 코드 블럭 안에 그림림)
 file-converter pdf2md report.pdf recovered.md
 ```
 
 ---
 
-## The Hard Parts
+## 어려웠던 점
 
 ### Code Blocks on Ebook Readers
 
-This took more debugging than I expected. There are three separate problems that all interact:
+생각보다 이 부분에서 디버깅이 많았습니다. 3가지 문제가 있었습니다:
 
-**1. ASCII art breaks at the wrong character.**
+**1. ASCII 아트가 잘못된 문자에서 끊어짐.**
 
-I had `word-break: break-all` in my CSS, which breaks at *any* character — including mid-draw in box-drawing characters like `──────────┐`. Switching to `overflow-wrap: break-word` fixes this: it only breaks at whitespace when it must.
+제 CSS에 `word-break: break-all`이라는 속성이 있었는데, 이 속성은 `──────────┐`와 같은 박스 드로잉 문자를 포함하여 *모든* 문자에서 줄 바꿈을 발생시켰습니다. `overflow-wrap: break-word`로 바꾸니 이 문제가 해결되었습니다. 필요한 경우에만 공백에서 줄 바꿈이 적용됩니다.
 
-**2. Code blocks are too narrow.**
+**2. Code block이 너무 좁음**
 
-Body padding plus page margins leave maybe 544px of usable width — about 70 characters at 13px mono font. Database diagrams and SQL examples routinely hit 80-90 characters. The fix: negative margins on `<pre>` blocks extend them beyond the body content area, reclaiming the padding on both sides.
+본문 패딩과 페이지 여백을 더하면 실제로 사용할 수 있는 너비는 약 544px 정도입니다. 이는 13px 모노폰트 기준으로 약 70자 정도에 해당합니다. 데이터베이스 다이어그램이나 SQL 예제는 보통 80~90자를 넘기곤 합니다. 해결책은 `<pre>` 블록에 음수 여백을 적용하여 본문 콘텐츠 영역을 벗어나도록 확장하는 것입니다. 이렇게 하면 양쪽 패딩을 되찾을 수 있습니다.
 
 ```css
 pre {
@@ -91,11 +91,11 @@ pre {
 }
 ```
 
-**3. Large code font size breaks pagination.**
+**3. 코드 글꼴 크기가 너무 크면 페이지네이션이 깨집니다.**
 
-I was using 17px for code to match a large body font. A 34-line ASCII diagram at 17px is about 895px tall — taller than a single A4 page (≈625px usable). Chrome ignores `page-break-inside: avoid` when an element physically cannot fit on one page, so it splits the diagram across two pages mid-draw.
+본문 글꼴 크기를 크게 하려고 코드 크기를 17px로 설정했습니다. 17px 크기로 34줄짜리 ASCII 다이어그램을 그리면 높이가 약 895px가 되는데, 이는 A4 용지 한 장(실사용 가능 면적 약 625px)보다 높습니다. 크롬은 요소가 한 페이지에 물리적으로 맞지 않을 경우 `page-break-inside: avoid` 설정을 무시하고 다이어그램을 중간에 두 페이지로 나눠 표시합니다.
 
-The solution is to keep `code_font_size` at 11px regardless of how large the body font is. Code is read structurally, not word-by-word — alignment and whitespace matter more than size. At 11px you get ≈98 characters per line, and even a 34-line block fits on one page.
+그래서 본문 글꼴 크기에 관계없이 `code_font_size`를 11px로 유지하는 것으로 해결했습니다. 코드는 단어 단위로 읽는 것이 아니라 구조적으로 읽히므로 글꼴 크기보다 정렬과 공백이 더 중요합니다. 11px로 설정하면 한 줄에 약 98자를 표시할 수 있으며, 34줄짜리 코드 블록도 한 페이지에 들어갑니다.
 
 ### Learning Rust Without a Rust Background
 
