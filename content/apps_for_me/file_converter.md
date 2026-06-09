@@ -150,9 +150,9 @@ pre {
 
 ## Source
 
-The full source is at `github.com/jerrydevengineer/file-converter` *(update this link)*.
+full source는 [`github.com/jerrydevengineer/md2pdf`](https://github.com/jerrydevengineer/md2pdf)에 있습니다.
 
-The two theme configs I use most are `ebook-theme.json` (13px body, compact) and `ebook-theme-big.json` (19px body, for when I want larger text with 11px code).
+주로 쓰는 테마는`ebook-theme.json` (13px body, compact) and `ebook-theme-big.json` (19px body)입니다.
 
 ---
 
