@@ -1,14 +1,12 @@
 # AI랑 Rust로 Markdown-to-PDF Converter 만들기
 
-저는 기록용(절대 다시 안 읽지만)으로 옵시디언을 사용 중입니다.
-I had a simple problem: I write technical notes in Markdown, but I wanted to read them comfortably on my ebook reader. Every tool I tried either produced ugly PDFs or gave me no control over the styling. So I decided to build my own — in Rust, a language I had never used before.
-
-This is the story of how that went, what I learned, and the tool I ended up with.
+저는 기록용(절대 다시 안 읽지만)으로 옵시디언을 사용 중입니다. 옵시디언은 마크다운으로 파일을 저장하는데 아이패드나 이북리더기에서 읽기 불편한 단점이 있었습니다. 그래서 옵시디언 기본 pdf로 변환을 자주 썼는데 이렇게 만들면 이북리더기에서는 보기가 좀 힘들더라구요. 그래서 클코랑 rust를 사용해서 같이 하나 만들어 봤습니다.
 
 ---
 
-## The Problem
+## 문제점
 
+저는 저를 위해서 작성하는 기술 노트들이 너무 많아지고 있었어요. 마크다운은 작성하고 모니터에서 
 I have a growing collection of technical notes — database internals, system design references, guides I write for myself. Markdown is great for writing. But reading a raw `.md` file on an ebook reader is not great. And most Markdown-to-PDF tools produce output that looks fine on a monitor but is painful on an e-ink display: tiny fonts, harsh white backgrounds, code blocks that overflow the page.
 
 I wanted:
