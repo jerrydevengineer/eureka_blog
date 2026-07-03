@@ -14,7 +14,7 @@ tags:
 ---
 # Spring Security 아키텍처 총정리: Filter Chain부터 인증/인가 흐름까지
 
-지난 글들에서 Spring MVC의 Filter Chain, 그리고 쿠키/세션/토큰 인증을 다루면서 "Spring Security도 결국 Filter다"라는 정도만 짚고 넘어갔습니다. 이번 글은 그 Filter 뭉치 안에 **정확히 무엇이 들어있고, 어떤 순서로 동작하며, 인증(Authentication)과 인가(Authorization)가 각각 어디서 이뤄지는지**를 정면으로 다룹니다.
+지난 글들에서 Spring MVC의 Filter Chain, 그리고 쿠키/세션/토큰 인증을 다루면서 "Spring Security도 결국 Filter다"라는 정도만 짚고 넘어갔습니다. 이번 글에선 그 Filter 뭉치 안에 **정확히 무엇이 들어있고, 어떤 순서로 동작하며, 인증(Authentication)과 인가(Authorization)가 각각 어디서 이뤄지는지**를 알아보겠습니다.
 
 ---
 
