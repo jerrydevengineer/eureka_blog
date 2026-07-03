@@ -3,7 +3,6 @@ title: "Spring Security 아키텍처 총정리: Filter Chain부터 인증/인가
 date: 2026-07-03
 tags: [Java, Spring, Spring Security, Authentication, Authorization, Filter]
 ---
-
 # Spring Security 아키텍처 총정리: Filter Chain부터 인증/인가 흐름까지
 
 지난 글들에서 Spring MVC의 Filter Chain, 그리고 쿠키/세션/토큰 인증을 다루면서 "Spring Security도 결국 Filter다"라는 정도만 짚고 넘어갔습니다. 이번 글은 그 Filter 뭉치 안에 **정확히 무엇이 들어있고, 어떤 순서로 동작하며, 인증(Authentication)과 인가(Authorization)가 각각 어디서 이뤄지는지**를 정면으로 다룹니다.
@@ -51,7 +50,7 @@ graph LR
 | 12 | `ExceptionTranslationFilter` | 이후 필터에서 발생한 인증/인가 예외를 붙잡아 처리 |
 | 13 | `AuthorizationFilter` (구 `FilterSecurityInterceptor`) | 최종 인가 결정 — URL별 권한 체크, 통과 못하면 예외 발생 |
 
-> 필터 순서는 Spring Security 버전마다 클래스명이 조금씩 바뀌었지만(`FilterSecurityInterceptor` → `AuthorizationFilter` 등), **"인증 필터들이 먼저 실행되고, 가장 마지막에 인가 필터가 최종 관문 역할을 한다"**는 큰 흐름은 동일합니다.
+> 필터 순서는 Spring Security 버전마다 클래스명이 조금씩 바뀌었지만(`FilterSecurityInterceptor` → `AuthorizationFilter` 등), **"인증 필터들이 먼저 실행되고, 가장 마지막에 인가 필터가 최종 관문 역할을 한다"** 는 큰 흐름은 동일합니다.
 
 핵심은 **13번 `AuthorizationFilter`가 체인의 맨 끝**에 있다는 점입니다. 즉, 여기까지 통과해야 비로소 지난 글에서 다룬 `DispatcherServlet`으로 요청이 넘어갑니다.
 
@@ -76,7 +75,7 @@ public interface AuthenticationManager {
 }
 ```
 
-`AuthenticationManager`의 기본 구현체는 `ProviderManager`이며, 내부에 **여러 개의 `AuthenticationProvider`**를 갖고 있다가 "이 인증 요청을 처리할 수 있는" Provider에게 위임합니다 (Form 로그인이면 `DaoAuthenticationProvider`, OAuth2면 별도 Provider 등).
+`AuthenticationManager`의 기본 구현체는 `ProviderManager`이며, 내부에 **여러 개의 `AuthenticationProvider`** 를 갖고 있다가 "이 인증 요청을 처리할 수 있는" Provider에게 위임합니다 (Form 로그인이면 `DaoAuthenticationProvider`, OAuth2면 별도 Provider 등).
 
 ### 3.2 Form 로그인 예시로 보는 전체 흐름
 
@@ -106,7 +105,7 @@ sequenceDiagram
 
 - `UserDetailsService.loadUserByUsername()`: 개발자가 직접 구현하는 지점. 보통 여기서 회원 Repository를 조회
 - `PasswordEncoder`: 평문 비밀번호를 저장하지 않기 위한 필수 요소 (`BCryptPasswordEncoder`가 사실상 표준)
-- 인증에 성공하면 `Authentication` 객체가 **`SecurityContextHolder`**에 저장되고, 이 값이 세션에도 함께 저장되어 다음 요청부터는 1번 필터(`SecurityContextHolderFilter`)가 세션에서 복원해줍니다.
+- 인증에 성공하면 `Authentication` 객체가 **`SecurityContextHolder`** 에 저장되고, 이 값이 세션에도 함께 저장되어 다음 요청부터는 1번 필터(`SecurityContextHolderFilter`)가 세션에서 복원해줍니다.
 
 ### 3.3 `SecurityContextHolder`와 ThreadLocal
 
@@ -181,7 +180,7 @@ CSRF(Cross-Site Request Forgery)는 사용자가 인증된 세션(쿠키)을 가
 
 ## 6. 지난 글들과의 연결 — 커스텀 JWT 필터는 어디에 낄까
 
-[쿠키/세션/토큰 인증 글](./cookie-token-session-authentication.md)에서 만든 `JwtAuthenticationFilter`는 이 표의 **6~8번 사이(폼 로그인 필터와 Basic 인증 필터 사이)**에 끼워 넣는 것이 정석입니다.
+[쿠키/세션/토큰 인증 글](spring%20인증.md)에서 만든 `JwtAuthenticationFilter`는 이 표의 **6~8번 사이(폼 로그인 필터와 Basic 인증 필터 사이)** 에 끼워 넣는 것이 정석입니다.
 
 ```java
 http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,7 +1,14 @@
 ---
-title: "쿠키, 세션, 토큰 인증 — Spring에서 로그인 상태는 어떻게 유지되는가"
-date: 2026-07-03
-tags: [Java, Spring, Spring Security, Cookie, Session, JWT, Authentication]
+title: 쿠키, 세션, 토큰 인증 — Spring에서 로그인 상태는 어떻게 유지되는가
+date: 2026-06-26
+tags:
+  - Java
+  - Spring
+  - Spring Security
+  - Cookie
+  - Session
+  - JWT
+  - Authentication
 ---
 
 # 쿠키, 세션, 토큰 인증 — Spring에서 로그인 상태는 어떻게 유지되는가

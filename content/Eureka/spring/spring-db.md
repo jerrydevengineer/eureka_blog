@@ -183,7 +183,7 @@ sequenceDiagram
 
 핵심 포인트:
 
-1. **프록시 기반**이므로 같은 클래스 내부에서 `this.otherMethod()`처럼 **자기 자신을 호출(self-invocation)**하면 프록시를 거치지 않아 `@Transactional`이 적용되지 않는다. (흔한 실수 1위)
+1. **프록시 기반**이므로 같은 클래스 내부에서 `this.otherMethod()`처럼 **자기 자신을 호출(self-invocation)** 하면 프록시를 거치지 않아 `@Transactional`이 적용되지 않는다. (흔한 실수 1위)
 2. 커넥션 하나를 트랜잭션 시작부터 끝(commit/rollback)까지 **ThreadLocal에 바인딩**해서 재사용한다 (`TransactionSynchronizationManager`).
 3. MyBatis의 `SqlSession`도, JPA의 `EntityManager`도 내부적으로 이 ThreadLocal 커넥션을 찾아 재사용하도록 Spring이 연동해준다.
 
@@ -193,12 +193,12 @@ sequenceDiagram
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 ```
 
-| Propagation | 의미 |
-|---|---|
-| `REQUIRED` (기본값) | 기존 트랜잭션이 있으면 참여, 없으면 새로 시작 |
-| `REQUIRES_NEW` | 기존 트랜잭션을 잠시 보류하고 항상 새 트랜잭션 시작 |
-| `NESTED` | 기존 트랜잭션 안에 savepoint를 두어 부분 롤백 가능 |
-| `MANDATORY` | 반드시 기존 트랜잭션이 있어야 함, 없으면 예외 |
+| Propagation      | 의미                                |
+| ---------------- | --------------------------------- |
+| `REQUIRED` (기본값) | 기존 트랜잭션이 있으면 참여, 없으면 새로 시작        |
+| `REQUIRES_NEW`   | 기존 트랜잭션을 잠시 보류하고 항상 새 트랜잭션 시작     |
+| `NESTED`         | 기존 트랜잭션 안에 savepoint를 두어 부분 롤백 가능 |
+| `MANDATORY`      | 반드시 기존 트랜잭션이 있어야 함, 없으면 예외        |
 
 | Isolation | 의미 | 방지하는 문제 |
 |---|---|---|
