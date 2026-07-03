@@ -1,7 +1,16 @@
 ---
 title: "Spring Security 아키텍처 총정리: Filter Chain부터 인증/인가 흐름까지"
 date: 2026-07-03
-tags: [Java, Spring, Spring Security, Authentication, Authorization, Filter]
+tags:
+  - Java
+  - Spring
+  - Spring Security
+  - Authentication
+  - Authorization
+  - Filter
+  - 멀티캠퍼스부트캠프
+  - 부트캠프
+  - 유레카4기
 ---
 # Spring Security 아키텍처 총정리: Filter Chain부터 인증/인가 흐름까지
 
